@@ -1,0 +1,13 @@
+body {
+	/*background-color: rgba(28,28,58);  */
+}
+
+.congrat {
+	text-align: center;
+	font-size: 3.5em;
+	color: rgba(28,28,58, 0.7);
+}
+
+a {
+  color: #00B7FF;
+}
