@@ -6,4 +6,43 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+router.get('/healthcheck', function(req, res) {
+	let responseString = {
+		message: 'Alles Gutten'
+	};
+	res.send(responseString)
+});
+
+router.get('/ilike/:choice/:name', function(req, res) {
+	let choice = req.params.choice;
+	let name = req.params.name;
+	let responseObject = {
+		message: 'I like ' + choice + ' too, ' + name 
+	};
+	res.send(responseObject.message);
+});
+
+const data = [];
+
+router.post('/iwant/:choice/:time', function(req, res){
+	let choice = req.body.what;
+	let time = req.body.when;
+	data.push({
+		choice: choice,
+		time: time,
+		message: 'Aš noriu ' + choice + ' ' + time
+	})
+	// res.send(data)
+	// data.forEach((wish) => {
+	// 	res.send(wish.message)
+	// })
+	console.log(data)
+	res.redirect('/')
+});
+
+router.get('/iwant', function(req, res){
+	//if data empty then error, else data
+	data.length > 0 ? res.send(data) : res.status(404).send()
+})
+
 module.exports = router;
