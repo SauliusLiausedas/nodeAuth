@@ -36,13 +36,27 @@ router.post('/iwant/:choice/:time', function(req, res){
 	// data.forEach((wish) => {
 	// 	res.send(wish.message)
 	// })
-	console.log(data)
+	// console.log(data)
 	res.redirect('/')
 });
 
 router.get('/iwant', function(req, res){
 	//if data empty then error, else data
-	data.length > 0 ? res.send(data) : res.status(404).send()
+	let select = req.query.select
+	if(data.length > 0) {
+		let responseObject = data
+		if(select && select == "count") {
+			responseObject = {count: data.length}
+		}
+		res.send(responseObject)
+	} else {
+		let responseObject = undefined
+		if(select && select == "count") {
+			responseObject = {count: 0}
+		}
+
+		res.status(404).send(responseObject)
+	}
 })
 
 module.exports = router;
